@@ -1,9 +1,15 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w1280/';
 
 // Styled-Components
+
+const GlobalStyle = createGlobalStyle`
+    body{
+        background-color: rgb(3, 0, 34);
+    }
+`;
 
 const MovieContainer = styled.div `
     width: 200px;
@@ -30,6 +36,7 @@ const MovieInfo = styled.div `
 export default function Movie({ title, poster_path, vote_average, overview }) {
   return (
     <MovieContainer>
+        <GlobalStyle />
          {/* 포스터 이미지 */}
             <MovieContainerImg src={IMG_BASE_URL + poster_path} alt='포스터'/>
         <MovieInfo>
