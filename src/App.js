@@ -1,12 +1,21 @@
 // Movie 컴포넌트를 가져옴
-import Movie from './components/Movie';
+import Movie from './components/Movie.style';
 // movieDummy 파일에서 movies 데이터를 가져옴
 import { movies } from './movieDummy';
+// Styled-Components 적용
+import styled from 'styled-components';
+
+// web-container > Styled-Components 적용
+const WebContainer = styled.div `
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+`;
 
 function App() {
   return (
     <div>
-      <div className='web-container'>
+      <WebContainer>
       {
           movies.results.map((item) => {
             return (
@@ -19,7 +28,7 @@ function App() {
             )
           })
         }
-      </div>
+      </WebContainer>
     </div>
   );
 }
