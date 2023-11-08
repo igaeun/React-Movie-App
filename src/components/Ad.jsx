@@ -6,22 +6,19 @@ const AdImg = styled.img `
   width: 100%;
 `
 
-export default function Ad (props) {
-  // eslint-disable-next-line react/prop-types
-  const { shouldShowAd } = props
+// eslint-disable-next-line react/prop-types
+const Ad = ({ showAd }) => {
+  // false인 경우 null 반환
+  if (!showAd) {
+    return null
+  }
 
+  // true인 경우 이미지 출력
   return (
     <div>
-      {shouldShowAd ? (
-        <div>
-          {/* 광고 컨텐츠.jsx */}
-          <AdImg src={ad} alt="ad" />
-        </div>
-      ) : (
-        <div>
-          {/* 광고 표시X.jsx */}
-        </div>
-      )}
+      <AdImg src={ad} alt="ad" />
     </div>
   )
 }
+
+export default Ad
