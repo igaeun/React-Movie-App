@@ -2,6 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { createGlobalStyle } from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w1280/'
 // Styled-Components
@@ -80,26 +81,28 @@ const MovieContainerWrapper = styled.div`
 
 export default function Movie ({ title, posterPath, voteAverage, overview }) {
   return (
-    <MovieContainerWrapper>
-      <GlobalStyle />
-      <MovieContainer>
-        {/* 포스터 이미지 */}
-        <MovieContainerImg src={IMG_BASE_URL + posterPath} alt='포스터'/>
-        {/* 영화 상세 설명 */}
-        <MovieOverview>
-          {/* 영화 상세 설명 > 제목 */}
-          <MovieOverviewTitle>{title}</MovieOverviewTitle>
-          {/* 영화 상세 설명 > 설명 */}
-          <MovieOverviewContent>{overview}</MovieOverviewContent>
-        </MovieOverview>
-        <MovieInfo>
-          {/* 영화 제목 */}
-          <div id='movie-title'>{title}</div>
-          {/* 영화 평점 */}
-          <div>{voteAverage}</div>
-        </MovieInfo>
-      </MovieContainer>
-    </MovieContainerWrapper>
+    <Link to={`/movie/${title}`}>
+      <MovieContainerWrapper>
+        <GlobalStyle />
+        <MovieContainer>
+          {/* 포스터 이미지 */}
+          <MovieContainerImg src={IMG_BASE_URL + posterPath} alt='포스터'/>
+          {/* 영화 상세 설명 */}
+          <MovieOverview>
+            {/* 영화 상세 설명 > 제목 */}
+            <MovieOverviewTitle>{title}</MovieOverviewTitle>
+            {/* 영화 상세 설명 > 설명 */}
+            <MovieOverviewContent>{overview}</MovieOverviewContent>
+          </MovieOverview>
+          <MovieInfo>
+            {/* 영화 제목 */}
+            <div id='movie-title'>{title}</div>
+            {/* 영화 평점 */}
+            <div>{voteAverage}</div>
+          </MovieInfo>
+        </MovieContainer>
+      </MovieContainerWrapper>
+    </Link>
   )
 }
 
