@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { createGlobalStyle } from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w1280/'
 // Styled-Components
@@ -80,13 +80,23 @@ const MovieContainerWrapper = styled.div`
 `
 
 export default function Movie ({ title, posterPath, voteAverage, overview }) {
+  const navigate = useNavigate()
+
+  const onClickImg = () => {
+    // 상세 페이지로 이동 및 정보 전달
+    console.log('Navigating to:', `/movie/${title}`)
+    navigate(`/movie/${title}`, {
+      state: { title, posterPath, voteAverage, overview } // 넘기고자 하는 정보들
+    })
+  }
+
   return (
-    <Link to={`/movie/${title}`}>
+    <Link to={`/movie/${title}`} onClick={onClickImg}>
       <MovieContainerWrapper>
         <GlobalStyle />
         <MovieContainer>
           {/* 포스터 이미지 */}
-          <MovieContainerImg src={IMG_BASE_URL + posterPath} alt='포스터'/>
+          <MovieContainerImg src={IMG_BASE_URL + posterPath} alt={title} onClick={onClickImg} />
           {/* 영화 상세 설명 */}
           <MovieOverview>
             {/* 영화 상세 설명 > 제목 */}
