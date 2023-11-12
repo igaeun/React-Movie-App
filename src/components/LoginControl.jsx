@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -16,38 +16,26 @@ const Button = styled.button`
   border-radius: 20px;
   padding: 4px 15px;
 `
+function LoginControl () {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-class LoginControl extends Component {
-  constructor (props) {
-    super(props)
-    // this.state 활용해서 isLoggedIn 의 값으로 상태 관리 하기
-    this.state = {
-      isLoggedIn: false
-    }
+  const handleLoginClick = () => {
+    setIsLoggedIn(true)
   }
 
-  handleLoginClick = () => {
-    this.setState({ isLoggedIn: true })
+  const handleLogoutClick = () => {
+    setIsLoggedIn(false)
   }
 
-  handleLogoutClick = () => {
-    this.setState({ isLoggedIn: false })
-  }
-
-  // 렌더링 메서드
-  render () {
-    const isLoggedIn = this.state.isLoggedIn
-
-    return (
-      <div>
-        {isLoggedIn ? (
-          <LogoutButton onClick={this.handleLogoutClick} />
-        ) : (
-          <LoginButton onClick={this.handleLoginClick} />
-        )}
-      </div>
-    )
-  }
+  return (
+    <div>
+      {isLoggedIn ? (
+        <LogoutButton onClick={handleLogoutClick} />
+      ) : (
+        <LoginButton onClick={handleLoginClick} />
+      )}
+    </div>
+  )
 }
 
 LoginControl.propTypes = {
