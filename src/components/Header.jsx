@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import LoginControl from './LoginControl'
+import LoginButton from './LoginButton'
 
 const Logo = styled.img`
   margin: 30px;
@@ -41,7 +41,7 @@ export default class Header extends PureComponent {
           <Menu to="/movie">영화</Menu>
           <Menu to="/tv">TV 프로그램</Menu>
           <Menu to="/celebrity">인물</Menu>
-          <LoginControl />
+          <LoginButton />
         </HeaderWrap>
       </HeaderContainer>
     )

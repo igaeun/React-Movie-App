@@ -8,6 +8,7 @@ import Movies from './pages/Movies'
 import NotFound from './pages/NotFound'
 import Tv from './pages/Tv'
 import MovieDetail from './components/MovieDetail'
+import Login from './pages/Login'
 
 const RootWrap = styled.div`
   position: absolute;
@@ -25,9 +26,10 @@ function App () {
           <Route path="/" element={<Home />} />
           <Route path="/movie" element={<Movies />} />
           <Route path="/tv" element={<Tv />} />
-          <Route path="/person" element={<Celebrity />} />
+          <Route path="/celebrity" element={<Celebrity />} />
           <Route path="/*" element={<NotFound />} />
           <Route path="/movie/:title" element={<MovieDetail />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </RootWrap>
