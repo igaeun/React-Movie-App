@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     }
 `
 
-const MovieContainer = styled.div `
+const MediaContainer = styled.div `
     width: 200px;
     background-color: rgba(15, 0, 102, 0.658);
     color: white;
@@ -22,14 +22,14 @@ const MovieContainer = styled.div `
     border-radius: 15px;
 `
 
-const MovieContainerImg = styled.img `
+const MediaContainerImg = styled.img `
     width: 200px;
     height: 300px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 `
 
-const MovieInfo = styled.div `
+const MediaInfo = styled.div `
     display: flex;
     padding: 10px;
     justify-content: space-between;
@@ -37,7 +37,7 @@ const MovieInfo = styled.div `
     font-size: 12px;
 `
 
-const MovieOverview = styled.div`
+const MediaOverview = styled.div`
     position: absolute;
     top: 0;
     left: 0;
@@ -50,7 +50,7 @@ const MovieOverview = styled.div`
     display: none;
 `
 
-const MovieOverviewTitle = styled.div`
+const MediaOverviewTitle = styled.div`
   font-size: 16px;
   font-weight: bold;
   padding-left: 10px;
@@ -58,7 +58,7 @@ const MovieOverviewTitle = styled.div`
   padding-top: 20px;
 `
 
-const MovieOverviewContent = styled.div`
+const MediaOverviewContent = styled.div`
   font-size: 12px;
   padding-left: 10px;
   padding-right: 10px;
@@ -66,7 +66,7 @@ const MovieOverviewContent = styled.div`
   line-height: 1.5;
 `
 
-const MovieContainerWrapper = styled.div`
+const MediaContainerWrapper = styled.div`
     width: 200px;
     background-color: rgba(15, 0, 102, 0.658);
     color: white;
@@ -74,51 +74,54 @@ const MovieContainerWrapper = styled.div`
     margin: 7px;
     border-radius: 15px;
     position: relative;
-    &:hover ${MovieOverview} {
+    &:hover ${MediaOverview} {
         display: block;
     }
 `
 
-export default function Movie ({ title, posterPath, voteAverage, overview }) {
+export default function Media ({ title, name, posterPath, voteAverage, overview, mediaType }) {
   const navigate = useNavigate()
 
   const onClickImg = () => {
+    const path = mediaType === 'movie' ? `/movie/${title}` : `tv/${name}`
     // 상세 페이지로 이동 및 정보 전달
-    console.log('Navigating to:', `/movie/${title}`)
-    navigate(`/movie/${title}`, {
-      state: { title, posterPath, voteAverage, overview } // 넘기고자 하는 정보들
+    console.log('Navigating to:', path)
+    navigate(path, {
+      state: { title, name, posterPath, voteAverage, overview } // 넘기고자 하는 정보들
     })
   }
 
   return (
-    <Link to={`/movie/${title}`} onClick={onClickImg}>
-      <MovieContainerWrapper>
+    <Link to={mediaType === 'movie' ? `/movie/${title}` : `/tv/${name}`} onClick={onClickImg}>
+      <MediaContainerWrapper>
         <GlobalStyle />
-        <MovieContainer>
+        <MediaContainer>
           {/* 포스터 이미지 */}
-          <MovieContainerImg src={IMG_BASE_URL + posterPath} alt={title} onClick={onClickImg} />
-          {/* 영화 상세 설명 */}
-          <MovieOverview>
-            {/* 영화 상세 설명 > 제목 */}
-            <MovieOverviewTitle>{title}</MovieOverviewTitle>
-            {/* 영화 상세 설명 > 설명 */}
-            <MovieOverviewContent>{overview}</MovieOverviewContent>
-          </MovieOverview>
-          <MovieInfo>
-            {/* 영화 제목 */}
-            <div id='movie-title'>{title}</div>
-            {/* 영화 평점 */}
+          <MediaContainerImg src={IMG_BASE_URL + posterPath} alt={title || name} onClick={onClickImg} />
+          {/* 프로그램 상세 설명 */}
+          <MediaOverview>
+            {/* 프로그램 상세 설명 > 제목 */}
+            <MediaOverviewTitle>{title || name}</MediaOverviewTitle>
+            {/* 프로그램 상세 설명 > 설명 */}
+            <MediaOverviewContent>{overview}</MediaOverviewContent>
+          </MediaOverview>
+          <MediaInfo>
+            {/* 프로그램 제목 */}
+            <div id={`${mediaType}-title`}>{title || name}</div>
+            {/* 프로그램 평점 */}
             <div>{voteAverage}</div>
-          </MovieInfo>
-        </MovieContainer>
-      </MovieContainerWrapper>
+          </MediaInfo>
+        </MediaContainer>
+      </MediaContainerWrapper>
     </Link>
   )
 }
 
-Movie.PropTypes = {
+Media.PropTypes = {
   title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   posterPath: PropTypes.string.isRequired,
   voteAverage: PropTypes.number.isRequired,
-  overview: PropTypes.string.isRequired
+  overview: PropTypes.string.isRequired,
+  mediaType: PropTypes.oneOf(['movie', 'tv'].isRequired)
 }

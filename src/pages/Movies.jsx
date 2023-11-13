@@ -1,5 +1,5 @@
 import React from 'react'
-import Movie from '../components/Movie'
+import Media from '../components/Media'
 import { movies } from '../movieDummy'
 // import MovieOverview from '../components/MovieOverview'
 import styled from 'styled-components'
@@ -14,7 +14,7 @@ export default function Movies () {
   const movieData = movies.results
 
   const movieList = movieData.map((movie, index) => (
-    <Movie
+    <Media
       key={index}
       title={movie.title}
       posterPath={movie.poster_path}
