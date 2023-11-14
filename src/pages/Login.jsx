@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const LoginPageWrapper = styled.div`
@@ -37,7 +37,7 @@ const EmailInputContainer = styled.input`
   border-color: #cfcfcf;
 `
 
-const EmailErrorMsg = styled.div`
+const ErrorMsg = styled.div`
   margin-top: 7px;
   color: red;
   font-size: 12px;
@@ -64,6 +64,24 @@ const SubmitButton = styled.button`
 `
 
 export default function Login () {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+
+  const validateEmail = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const isValid = emailRegex.test(email)
+    setEmailError(isValid ? '' : '올바른 이메일을 입력해주세요.')
+    return isValid
+  }
+
+  const validatePassword = () => {
+    const isValid = password.length >= 8
+    setPasswordError(isValid ? '' : '비밀번호는 8자 이상이어야 합니다.')
+    return isValid
+  }
+
   return (
     <LoginPageWrapper>
       <ContentWrapper>
@@ -75,21 +93,30 @@ export default function Login () {
           <FormTitle>
             이메일 주소
           </FormTitle>
-          <EmailInputContainer>
-
-          </EmailInputContainer>
-          <EmailErrorMsg>
-            올바른 이메일을 입력해주세요.
-          </EmailErrorMsg>
+          <EmailInputContainer
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onBlur={validateEmail}
+          />
+          <ErrorMsg>
+            {emailError}
+          </ErrorMsg>
         </FormWrapper>
         {/* 비밀번호 */}
         <FormWrapper>
           <FormTitle>
             비밀번호
           </FormTitle>
-          <PasswordInputContainer>
-
-          </PasswordInputContainer>
+          <PasswordInputContainer
+            type="password"
+            velue={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onBlur={validatePassword}
+          />
+          <ErrorMsg>
+            {passwordError}
+          </ErrorMsg>
         </FormWrapper>
         <SubmitButton>
         확인
