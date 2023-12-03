@@ -12,8 +12,6 @@ const MovieContainerWrapper = styled.div`
 const Img = styled.img`
   width: 200px;
   height: 300px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
 `
 
 const MovieDetailWrapper = styled.div`
